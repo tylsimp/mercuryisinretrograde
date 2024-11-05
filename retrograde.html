@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercury Retrograde Checker</title>
+    <style>
+        body {
+            font-family: Georgia, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            color: #333;
+            padding: 50px;
+        }
+
+        .retrograde-status {
+            font-size: 2em;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .retrograde {
+            background-color: #ffcc00;
+            color: #fff;
+        }
+
+        .not-retrograde {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 2.5em;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mercury Retrograde Checker</h1>
+    <p>Is Mercury in Retrograde right now?</p>
+    <div id="retrograde-status" class="retrograde-status">
+        Loading...
+    </div>
+
+    <script>
+        // Define the retrograde date ranges
+        const retrogradePeriods = [
+            { start: "2024-11-25", end: "2024-12-15" }, // 2024
+            { start: "2025-03-14", end: "2025-04-07" }, // 2025
+            { start: "2025-07-17", end: "2025-08-11" }, // 2025
+            { start: "2025-11-09", end: "2025-11-29" }, // 2025
+            { start: "2026-02-25", end: "2026-03-20" }, // 2026
+            { start: "2026-06-29", end: "2026-07-23" }, // 2026
+            { start: "2026-10-24", end: "2026-11-13" }, // 2026
+        ];
+
+        // Convert date string to Date object
+        function parseDate(dateStr) {
+            return new Date(dateStr);
+        }
+
+        // Function to check if the current date is within any retrograde period
+        function isMercuryRetrograde() {
+            const currentDate = new Date();
+            
+            for (const period of retrogradePeriods) {
+                const startDate = parseDate(period.start);
+                const endDate = parseDate(period.end);
+
+                // Check if current date is between start and end of retrograde period
+                if (currentDate >= startDate && currentDate <= endDate) {
+                    return true; // Mercury is in retrograde
+                }
+            }
+
+            return false; // Mercury is not in retrograde
+        }
+
+        // Function to update the page with the retrograde status
+        function updateRetrogradeStatus() {
+            const statusElement = document.getElementById('retrograde-status');
+            if (isMercuryRetrograde()) {
+                statusElement.textContent = "Mercury is currently in Retrograde!";
+                statusElement.classList.add('retrograde');
+                statusElement.classList.remove('not-retrograde');
+            } else {
+                statusElement.textContent = "Mercury is NOT in Retrograde.";
+                statusElement.classList.add('not-retrograde');
+                statusElement.classList.remove('retrograde');
+            }
+        }
+
+        // Run the function to check the status
+        updateRetrogradeStatus();
+    </script>
+</body>
+</html>
